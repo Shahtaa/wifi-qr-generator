@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/wifi-qr-generator/static/css/main.58d8be2d.css",
-    "main.js": "/wifi-qr-generator/static/js/main.c79ab297.js",
+    "main.js": "/wifi-qr-generator/static/js/main.1de5c830.js",
     "static/js/453.5f8db3d8.chunk.js": "/wifi-qr-generator/static/js/453.5f8db3d8.chunk.js",
     "index.html": "/wifi-qr-generator/index.html",
     "main.58d8be2d.css.map": "/wifi-qr-generator/static/css/main.58d8be2d.css.map",
-    "main.c79ab297.js.map": "/wifi-qr-generator/static/js/main.c79ab297.js.map",
+    "main.1de5c830.js.map": "/wifi-qr-generator/static/js/main.1de5c830.js.map",
     "453.5f8db3d8.chunk.js.map": "/wifi-qr-generator/static/js/453.5f8db3d8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.58d8be2d.css",
-    "static/js/main.c79ab297.js"
+    "static/js/main.1de5c830.js"
   ]
 }
