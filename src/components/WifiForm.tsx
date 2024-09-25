@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
-import { TextField, Button, Grid, FormControlLabel, Checkbox } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Grid,
+  FormControlLabel,
+  Checkbox,
+  Snackbar,
+  Alert,
+} from '@mui/material';
 import WifiIcon from '@mui/icons-material/Wifi'; // Importing Wifi Icon
+import { SnackbarCloseReason } from '@mui/material/Snackbar'; // Import SnackbarCloseReason
 
 interface WifiFormProps {
   setQrData: (data: string) => void;
@@ -11,11 +20,46 @@ const WifiForm: React.FC<WifiFormProps> = ({ setQrData }) => {
   const [encryption, setEncryption] = useState<'WPA' | 'WEP' | 'nopass'>('WPA');
   const [key, setKey] = useState('');
   const [hidden, setHidden] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // State for Snackbar open
+  const [snackbarMessage, setSnackbarMessage] = useState(''); // State for Snackbar message
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validation for SSID
+    if (ssid.length < 8 || ssid.length > 32) {
+      setSnackbarMessage('SSID must be between 8 and 32 characters long.');
+      setSnackbarOpen(true);
+      return;
+    }
+    if (!ssid) {
+      setSnackbarMessage('SSID is required.');
+      setSnackbarOpen(true);
+      return;
+    }
+
+    // Validation for Key (password)
+    if (encryption !== 'nopass' && key.length < 8) {
+      setSnackbarMessage('Password must be at least 8 characters long.');
+      setSnackbarOpen(true);
+      return;
+    }
+
+    // Clear the Snackbar message if validation passes
+    setSnackbarMessage('');
+
     const data = `WIFI:S:${ssid};T:${encryption};P:${key};H:${hidden};`;
     setQrData(data);
+  };
+
+  const handleSnackbarClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   return (
@@ -92,6 +136,18 @@ const WifiForm: React.FC<WifiFormProps> = ({ setQrData }) => {
           </Button>
         </Grid>
       </Grid>
+
+      {/* Snackbar for error messages */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'left' }} // Position at top left
+      >
+        <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </form>
   );
 };
