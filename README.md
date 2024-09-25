@@ -18,6 +18,6 @@ A user-friendly QR code generator built with React.
 To get started with this project, clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/<your-username>/wifi-qr-generator.git
+git clone https://github.com/shahtaa/wifi-qr-generator.git
 cd wifi-qr-generator
 npm install
